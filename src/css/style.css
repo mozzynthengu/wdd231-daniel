@@ -185,3 +185,17 @@
   width: 24px;
   height: 24px;
 }
+.logo {
+  height: 0;
+  width: 0;
+  margin: 0.5em;
+  display: inline-block;
+  border-top: 34px solid var(--bs-light-green);
+  border-left: 13px solid transparent;
+  border-right: 13px solid transparent;
+}
+.global-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
