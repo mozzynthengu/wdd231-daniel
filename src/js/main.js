@@ -60,3 +60,51 @@ function setHeaderInfo(data) {
 
 // run it
 setHeaderInfo(parkData);
+function setParkIntro(data) {
+  const intro = document.querySelector(".intro");
+
+  intro.innerHTML = `
+    <h1>${data.fullName}</h1>
+    <p>${data.description}</p>
+  `;
+}
+setParkIntro(parkData);
+function mediaCardTemplate(info) {
+  return `
+    <div class="media-card">
+      <a href="${info.link}">
+        <img src="${info.image}" alt="${info.name}">
+        <h3>${info.name}</h3>
+      </a>
+      <p>${info.description}</p>
+    </div>
+  `;
+}
+const parkInfoLinks = [
+  {
+    name: "Current Conditions ›",
+    link: "conditions.html",
+    image: parkData.images[2].url,
+    description: "See what conditions to expect in the park before leaving on your trip!"
+  },
+  {
+    name: "Fees and Passes ›",
+    link: "fees.html",
+    image: parkData.images[3].url,
+    description: "Learn about the fees and passes that are available."
+  },
+  {
+    name: "Visitor Centers ›",
+    link: "visitor_centers.html",
+    image: parkData.images[9].url,
+    description: "Learn about the visitor centers in the park."
+  }
+];
+function setParkInfoLinks(data) {
+  const info = document.querySelector(".info");
+
+  const html = data.map(mediaCardTemplate);
+
+  info.innerHTML = html.join("");
+}
+setParkInfoLinks(parkInfoLinks);
