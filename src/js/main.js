@@ -27,11 +27,11 @@
 //}
 
 
-//const heroContent = document.querySelector(".hero-banner__content");
-//heroContent.innerHTML = parkInfoTemplate(parkData);
 import { getParkData } from "./parkService.mjs";
 
 const parkData = getParkData();
+
+// ---------- TEMPLATES ----------
 
 function parkInfoTemplate(info) {
   return `
@@ -42,6 +42,46 @@ function parkInfoTemplate(info) {
     </p>
   `;
 }
+
+function mediaCardTemplate(info) {
+  return `
+    <div class="media-card">
+      <a href="${info.link}">
+        <img src="${info.image}" alt="${info.name}">
+        <h3>${info.name}</h3>
+      </a>
+      <p>${info.description}</p>
+    </div>
+  `;
+}
+
+function footerTemplate(data) {
+  const mailing = getMailingAddress(data.addresses);
+  const phone = getVoicePhone(data.contacts.phoneNumbers);
+
+  return `
+    <section class="contact">
+      <h3>Contact Info</h3>
+      <h4>Mailing Address:</h4>
+      <p>${mailing.line1}</p>
+      <p>${mailing.city}, ${mailing.stateCode} ${mailing.postalCode}</p>
+      <h4>Phone:</h4>
+      <p>${phone}</p>
+    </section>
+  `;
+}
+
+// ---------- HELPERS ----------
+
+function getMailingAddress(addresses) {
+  return addresses.find(a => a.type === "Mailing");
+}
+
+function getVoicePhone(numbers) {
+  return numbers.find(n => n.type === "Voice").phoneNumber;
+}
+
+// ---------- SET FUNCTIONS ----------
 
 function setHeaderInfo(data) {
   const disclaimer = document.querySelector(".disclaimer a");
@@ -58,28 +98,27 @@ function setHeaderInfo(data) {
   heroContent.innerHTML = parkInfoTemplate(data);
 }
 
-// run it
-setHeaderInfo(parkData);
 function setParkIntro(data) {
   const intro = document.querySelector(".intro");
-
   intro.innerHTML = `
     <h1>${data.fullName}</h1>
     <p>${data.description}</p>
   `;
 }
-setParkIntro(parkData);
-function mediaCardTemplate(info) {
-  return `
-    <div class="media-card">
-      <a href="${info.link}">
-        <img src="${info.image}" alt="${info.name}">
-        <h3>${info.name}</h3>
-      </a>
-      <p>${info.description}</p>
-    </div>
-  `;
+
+function setParkInfoLinks(data) {
+  const info = document.querySelector(".info");
+  const html = data.map(mediaCardTemplate);
+  info.insertAdjacentHTML("afterbegin", html.join(""));
 }
+
+function setFooter(data) {
+  const footer = document.querySelector("#park-footer");
+  footer.innerHTML = footerTemplate(data);
+}
+
+// ---------- DATA ----------
+
 const parkInfoLinks = [
   {
     name: "Current Conditions ›",
@@ -100,11 +139,22 @@ const parkInfoLinks = [
     description: "Learn about the visitor centers in the park."
   }
 ];
-function setParkInfoLinks(data) {
-  const info = document.querySelector(".info");
 
-  const html = data.map(mediaCardTemplate);
+// ---------- RUN ----------
 
-  info.innerHTML = html.join("");
-}
+setHeaderInfo(parkData);
+setParkIntro(parkData);
 setParkInfoLinks(parkInfoLinks);
+setFooter(parkData);
+
+
+
+
+
+
+
+
+
+
+//const heroContent = document.querySelector(".hero-banner__content");
+//heroContent.innerHTML = parkInfoTemplate(parkData);
