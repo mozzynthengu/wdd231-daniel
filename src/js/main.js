@@ -8,7 +8,7 @@
 //disclaimer.textContent = parkData.fullName;
 
 // Page title
-/.document.title = parkData.fullName;
+//.document.title = parkData.fullName;
 
 // Hero image
 //const heroImg = document.querySelector(".hero-banner img");
