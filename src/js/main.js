@@ -157,4 +157,5 @@ setFooter(parkData);
 
 
 //const heroContent = document.querySelector(".hero-banner__content");
-//heroContent.innerHTML = parkInfoTemplate(parkData);
+//heroContent.innerHTML = parkInfoTemplate(parkData);y
+init();
