@@ -342,3 +342,11 @@ a:hover {
   color: var(--bs-grey-2);
   margin: 0.3rem 0;
 }
+#park-footer {
+    background-color: var(--bs-black);
+    color: var(--bs-black);
+    display: flex;
+    flex-direction: column;
+    padding: 0 1rem;
+    background-color: #eac8ac;
+}
